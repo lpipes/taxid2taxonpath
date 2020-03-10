@@ -4,10 +4,10 @@ modified from https://github.com/bakerccm/entrez_qiime and updated for python3
 uses the cogent3 library
 
 taxid2taxonpath.py 
--d <nodes.dmp> 
--m <names.dmp> 
--e <merged.dmp> 
--l <deleted.dmp> 
+-d nodes.dmp
+-m names.dmp 
+-e merged.dmp 
+-l deleted.dmp 
 -i <input_file> 
 -o <output_file> 
 -c <column of taxid> 
