@@ -95,8 +95,8 @@ def main(argv):
     taxid_taxonomy = {}
     ranks_lookup = dict([(r,idx) for idx,r in enumerate(output_ranks)])
     for node in included_nodes:
-        lineage = ['NA'] * len(ranks_lookup)
         curr = node
+        lineage = ['NA'] * (ranks_lookup[curr.Rank]+1)
         lineage_complete = False
         while lineage_complete is False:
             if curr.Rank in ranks_lookup:
@@ -109,7 +109,6 @@ def main(argv):
                     if (taxid_taxonomy[curr.TaxonId][level] is not 'NA') and (lineage[level] is 'NA'):
                         lineage[level] = taxid_taxonomy[curr.TaxonId][level]
                 lineage_complete = True
-        #import pdb; pdb.set_trace()
         taxid_taxonomy[node.TaxonId] = lineage
     missing_taxonomy = ['NA'] * len(ranks_lookup)
     o = open(outputfile,'w')
