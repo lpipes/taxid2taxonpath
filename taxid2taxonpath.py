@@ -123,7 +123,7 @@ def main(argv):
     o = open(outputfile,'w')
     for curr_read in taxid:
         path = taxid_taxonomy[int(taxid[curr_read])]
-        lowest_rank = ranks_taxonomy[int(taxid[curr_read])]
+        lowest_rank = ranks_taxonomy[int(taxid[curr_read])]+1
         lineage = ';'.join(path[0:lowest_rank])
         lineage = ';'.join(taxid_taxonomy[int(taxid[curr_read])])
         o.write(curr_read+"\t"+lineage+"\n")
