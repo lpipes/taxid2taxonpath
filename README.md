@@ -7,7 +7,7 @@ taxid2taxonpath.py
 -d* nodes.dmp
 -m* names.dmp 
 -e* merged.dmp 
--l* deleted.dmp 
+-l* delnodes.dmp 
 -i* input_file 
 -o* output_file 
 -c column_of_taxid 
