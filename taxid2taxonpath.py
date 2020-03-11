@@ -24,11 +24,11 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"hd:m:o:i:e:l:c:r:",["nodes=","names=","out=","input=","merged=","deleted=","column=","read="])
     except getopt.GetoptError:
-        print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -i <kraken2> -o <txt> -e <merged.dmp> -l <deleted.dmp> -c <column of taxid> -r <column of readname>')
+        print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -i <kraken2> -o <txt> -e <merged.dmp> -l <delnodes.dmp> -c <column of taxid> -r <column of readname>')
         sys.exit(2)
     for opt,arg in opts:
         if opt == '-h':
-            print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -e <merged.dmp> -l <deleted.dmp> -i <kraken2> -o <txt> -c <column of taxid> -r <column of readname>')
+            print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -e <merged.dmp> -l <delnodes.dmp> -i <kraken2> -o <txt> -c <column of taxid> -r <column of readname>')
             print ('the default column of taxid is 3 and the default column of readname is 2 (for kraken2 output)')
             print ('.dmp files can be downloaded from ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz')
             sys.exit()
