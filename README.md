@@ -1,5 +1,5 @@
 # taxid2taxonpath
-converts taxids to taxonpaths
+converts EMBL, NCBI (GenBank), DDBJ taxon ids to full taxonomic paths
 modified from https://github.com/bakerccm/entrez_qiime and updated for python3
 uses the cogent3 library
 
