@@ -93,11 +93,20 @@ def main(argv):
         taxid[curr_reads] = curr_taxid
     results.close()
     taxid_taxonomy = {}
+    ranks_taxonomy = {}
     ranks_lookup = dict([(r,idx) for idx,r in enumerate(output_ranks)])
     for node in included_nodes:
+        lineage = ['NA'] * len(ranks_lookup)
         curr = node
-        lineage = ['NA'] * (ranks_lookup[curr.Rank]+1)
         lineage_complete = False
+        if curr.Rank=="no rank":
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="subspecies":
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="species group":
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        else:
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup[curr.Rank]
         while lineage_complete is False:
             if curr.Rank in ranks_lookup:
                 lineage[ranks_lookup[curr.Rank]] = curr.Name
@@ -113,6 +122,9 @@ def main(argv):
     missing_taxonomy = ['NA'] * len(ranks_lookup)
     o = open(outputfile,'w')
     for curr_read in taxid:
+        path = taxid_taxonomy[int(taxid[curr_read])]
+        lowest_rank = ranks_taxonomy[int(taxid[curr_read])]
+        lineage = ';'.join(path[0:lowest_rank])
         lineage = ';'.join(taxid_taxonomy[int(taxid[curr_read])])
         o.write(curr_read+"\t"+lineage+"\n")
     o.close()
