@@ -45,7 +45,9 @@ def main(argv):
         elif opt in ("-l","--deleted"):
             deletednodes=arg
         elif opt in ("-c","--column"):
-            col=arg
+            col=int(arg)
+        elif opt in ("-r","--read"):
+            read=int(arg)
     ncbi_full_taxonomy = NcbiTaxonomyFromFiles(open(nodes_file),open(names_file))
     merged = {}
     mergeddmp = open(mergednodes,'r')
@@ -66,7 +68,7 @@ def main(argv):
     failed_taxids = {}
     results = open(inputfile,'r')
     for curr_line in results:
-        curr_reads = curr_line.rstrip().split('\t')[1]
+        curr_reads = curr_line.rstrip().split('\t')[read-ZZ1]
         curr_taxid = curr_line.rstrip().split('\t')[col-1]
         if not curr_taxid in node_numbers:
             try:
