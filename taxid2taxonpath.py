@@ -68,7 +68,7 @@ def main(argv):
     failed_taxids = {}
     results = open(inputfile,'r')
     for curr_line in results:
-        curr_reads = curr_line.rstrip().split('\t')[read-ZZ1]
+        curr_reads = curr_line.rstrip().split('\t')[read-1]
         curr_taxid = curr_line.rstrip().split('\t')[col-1]
         if not curr_taxid in node_numbers:
             try:
