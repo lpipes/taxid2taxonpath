@@ -124,10 +124,13 @@ def main(argv):
     missing_taxonomy = ['NA'] * len(ranks_lookup)
     o = open(outputfile,'w')
     for curr_read in taxid:
-        path = taxid_taxonomy[int(taxid[curr_read])]
-        lowest_rank = ranks_taxonomy[int(taxid[curr_read])]+1
-        lineage = ';'.join(path[0:lowest_rank])
-        lineage = ';'.join(taxid_taxonomy[int(taxid[curr_read])])
+        if int(taxid[curr_read]) == 0:
+            lineage = 'unassigned'
+        else:
+            path = taxid_taxonomy[int(taxid[curr_read])]
+            lowest_rank = ranks_taxonomy[int(taxid[curr_read])]+1
+            lineage = ';'.join(path[0:lowest_rank])
+            #lineage = ';'.join(taxid_taxonomy[int(taxid[curr_read])])
         o.write(curr_read+"\t"+lineage+"\n")
     o.close()
 if __name__ == "__main__":
