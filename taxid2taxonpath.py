@@ -56,7 +56,7 @@ def main(argv):
         curr_line_new_taxid = curr_line.split('|')[1].strip()
         merged[curr_line_old_taxid] = curr_line_new_taxid
     mergeddmp.close()
-    deleted = {}
+    deleted_taxids = {}
     delnodesdmp = open(deletednodes,'r')
     for curr_line in delnodesdmp:
         curr_line_old_taxid = curr_line.split('|')[0].strip()
