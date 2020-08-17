@@ -24,11 +24,11 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"hd:m:o:i:e:l:c:r:",["nodes=","names=","out=","input=","merged=","deleted=","column=","read="])
     except getopt.GetoptError:
-        print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -i <kraken2> -o <txt> -e <merged.dmp> -l <delnodes.dmp> -c <column of taxid> -r <column of readname>')
+        print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -i <kraken2> -o <txt> -e <merged.dmp> -l <deleted.dmp> -c <column of taxid> -r <column of readname>')
         sys.exit(2)
     for opt,arg in opts:
         if opt == '-h':
-            print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -e <merged.dmp> -l <delnodes.dmp> -i <kraken2> -o <txt> -c <column of taxid> -r <column of readname>')
+            print('taxid2TaxonPath.py -d <nodes.dmp> -m <names.dmp> -e <merged.dmp> -l <deleted.dmp> -i <kraken2> -o <txt> -c <column of taxid> -r <column of readname>')
             print ('the default column of taxid is 3 and the default column of readname is 2 (for kraken2 output)')
             print ('.dmp files can be downloaded from ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz')
             sys.exit()
@@ -60,7 +60,7 @@ def main(argv):
     delnodesdmp = open(deletednodes,'r')
     for curr_line in delnodesdmp:
         curr_line_old_taxid = curr_line.split('|')[0].strip()
-        deleted[curr_line_old_taxid] = True
+        deleted_taxids[curr_line_old_taxid] = True
     delnodesdmp.close()
     included_nodes = []
     node_numbers = {}
@@ -100,12 +100,62 @@ def main(argv):
     for node in included_nodes:
         lineage = ['NA'] * len(ranks_lookup)
         curr = node
+        #if curr.Rank in ranks_lookup:
+        #    lineage = ['NA'] * (ranks_lookup[curr.Rank]+1)
+        #else:
+        #    lineage = ['NA'] * len(ranks_lookup)
         lineage_complete = False
         if curr.Rank=="no rank":
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         elif curr.Rank=="subspecies":
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         elif curr.Rank=="species group":
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="superfamily":
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="infraorder":
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+            print(curr.TaxonId)
+        elif curr.Rank=="suborder":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="cohort":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="tribe":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="infraclass":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="superorder":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="subclass":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="subfamily":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="parvorder":
+            print("help\n")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['order']
+        elif curr.Rank=="kingdom":
+            print("superkingdom")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['superkingdom']
+        elif curr.Rank=="subgenus":
+            print("subgenus")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['genus']
+        elif curr.Rank=="subtribe":
+            print("subtribe")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="species subgroup":
+            print("species subgroup")
+            print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         else:
             ranks_taxonomy[curr.TaxonId]=ranks_lookup[curr.Rank]
@@ -116,6 +166,7 @@ def main(argv):
             if curr is None:
                 lineage_complete = True
             elif curr.TaxonId in taxid_taxonomy:
+                #import pdb; pdb.set_trace()
                 for level in range(0,len(lineage)):
                     if (taxid_taxonomy[curr.TaxonId][level] is not 'NA') and (lineage[level] is 'NA'):
                         lineage[level] = taxid_taxonomy[curr.TaxonId][level]
@@ -124,13 +175,16 @@ def main(argv):
     missing_taxonomy = ['NA'] * len(ranks_lookup)
     o = open(outputfile,'w')
     for curr_read in taxid:
+        #import pdb; pdb.set_trace()
         if int(taxid[curr_read]) == 0:
-            lineage = 'unassigned'
+                lineage = 'unassigned'
         else:
             path = taxid_taxonomy[int(taxid[curr_read])]
             lowest_rank = ranks_taxonomy[int(taxid[curr_read])]+1
             lineage = ';'.join(path[0:lowest_rank])
-            #lineage = ';'.join(taxid_taxonomy[int(taxid[curr_read])])
+        #for i in enumerate(taxid_taxonomy[int(taxid[curr_read]):
+        #    lineage = ';'.join(taxid_taxonomy[
+        #lineage = ';'.join(taxid_taxonomy[int(taxid[curr_read])])
         o.write(curr_read+"\t"+lineage+"\n")
     o.close()
 if __name__ == "__main__":
