@@ -157,6 +157,14 @@ def main(argv):
             print("species subgroup")
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="varietas":
+            print("varietas")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="strain":
+            print("strain")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         else:
             ranks_taxonomy[curr.TaxonId]=ranks_lookup[curr.Rank]
         while lineage_complete is False:
@@ -168,7 +176,7 @@ def main(argv):
             elif curr.TaxonId in taxid_taxonomy:
                 #import pdb; pdb.set_trace()
                 for level in range(0,len(lineage)):
-                    if (taxid_taxonomy[curr.TaxonId][level] is not 'NA') and (lineage[level] is 'NA'):
+                    if (taxid_taxonomy[curr.TaxonId][level] != 'NA') and (lineage[level] == 'NA'):
                         lineage[level] = taxid_taxonomy[curr.TaxonId][level]
                 lineage_complete = True
         taxid_taxonomy[node.TaxonId] = lineage
