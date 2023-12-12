@@ -168,6 +168,14 @@ def main(argv):
         elif curr.Rank=="forma":
             print("forma")
             print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['genus']
+        elif curr.Rank=="forma specialis":
+            print("forma specialis")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="clade":
+            print("clade")
+            print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         else:
             ranks_taxonomy[curr.TaxonId]=ranks_lookup[curr.Rank]
