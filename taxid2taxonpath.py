@@ -165,6 +165,10 @@ def main(argv):
             print("strain")
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="forma":
+            print("forma")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         else:
             ranks_taxonomy[curr.TaxonId]=ranks_lookup[curr.Rank]
         while lineage_complete is False:
