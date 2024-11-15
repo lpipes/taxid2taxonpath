@@ -128,6 +128,9 @@ def main(argv):
         elif curr.Rank=="infraclass":
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="biotype":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         elif curr.Rank=="superorder":
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
