@@ -140,6 +140,9 @@ def main(argv):
         elif curr.Rank=="genotype":
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="section":
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         elif curr.Rank=="morph":
             print(currn.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
