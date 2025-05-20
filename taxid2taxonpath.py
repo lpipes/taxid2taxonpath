@@ -196,6 +196,10 @@ def main(argv):
             print("isolate")
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="genotype":
+            print("genotype")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         else:
             ranks_taxonomy[curr.TaxonId]=ranks_lookup[curr.Rank]
         while lineage_complete is False:
