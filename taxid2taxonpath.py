@@ -18,7 +18,7 @@ def main(argv):
     inputfile = ''
     mergednodes = ''
     deletednodes = ''
-    output_ranks = ['superkingdom','phylum','class','order','family','genus','species']
+    output_ranks = ['domain','phylum','class','order','family','genus','species']
     col=3
     read=2
     try:
@@ -157,9 +157,9 @@ def main(argv):
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['order']
         elif curr.Rank=="kingdom":
-            print("superkingdom")
+            print("domain")
             print(curr.TaxonId)
-            ranks_taxonomy[curr.TaxonId]=ranks_lookup['superkingdom']
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['domain']
         elif curr.Rank=="subgenus":
             print("subgenus")
             print(curr.TaxonId)
@@ -198,6 +198,14 @@ def main(argv):
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         elif curr.Rank=="genotype":
             print("genotype")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="biotype":
+            print("biotype")
+            print(curr.TaxonId)
+            ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
+        elif curr.Rank=="serogroup":
+            print("serogroup")
             print(curr.TaxonId)
             ranks_taxonomy[curr.TaxonId]=ranks_lookup['species']
         else:
